@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d46bba227088494d8cfb0fbf533fe7c8" Name="Diagram1" ZoomLevel="93">
+        <EntityTypeShape EntityType="PolyankaModel.Customers" Width="1.5" PointX="1.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.Delivery" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.Employees" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.Menu" Width="1.5" PointX="3.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.Order_" Width="1.5" PointX="3.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.Order_point" Width="1.5" PointX="6" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.Posts" Width="1.5" PointX="3.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.Products_in_storehouse" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.Storehouse" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.Suppliers" Width="1.5" PointX="1.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.Supplies" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PolyankaModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="PolyankaModel.FK__Order___id_custo__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyankaModel.FK__Delivery__id_sto__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyankaModel.FK__Delivery__id_sup__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyankaModel.FK__Employees__id_or__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyankaModel.FK__Employees__id_st__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyankaModel.FK__Employees__post__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyankaModel.FK__Order_poi__id_di__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyankaModel.FK__Order_poi__id_or__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyankaModel.FK__Products___id_St__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="PolyankaModel.FK__Supplies__id_sup__3D5E1FD2" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PolyankaModel.Users" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PolyankaModel.images" Width="1.5" PointX="7.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

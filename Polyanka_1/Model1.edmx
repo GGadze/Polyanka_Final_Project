@@ -1,0 +1,817 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище PolyankaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="contact_info" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_supplies" Type="int" Nullable="false" />
+          <Property Name="id_storehouse" Type="int" Nullable="false" />
+          <Property Name="date_of_delivery" Type="date" Nullable="false" />
+          <Property Name="full_cost" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_storehouse" Type="int" Nullable="false" />
+          <Property Name="id_order" Type="int" Nullable="false" />
+          <Property Name="FIO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="post" Type="int" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Polyanka.dbo.images" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="images">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="image" />
+          </Key>
+          <Property Name="name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="image" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dish_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description_" Type="varchar" MaxLength="300" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order_">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_customer" Type="int" Nullable="false" />
+          <Property Name="date_of_order" Type="date" Nullable="false" />
+          <Property Name="cost_of_order" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order_point">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_order" Type="int" Nullable="false" />
+          <Property Name="id_dish" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_of_post" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="description_" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Products_in_storehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Storehouse" Type="int" Nullable="false" />
+          <Property Name="product_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="unit" Type="varchar" MaxLength="15" />
+          <Property Name="quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Storehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="location_" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="contact_info" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Supplies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_supplier" Type="int" Nullable="false" />
+          <Property Name="product_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="unit" Type="varchar" MaxLength="15" />
+          <Property Name="quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="salt" Type="varchar" MaxLength="255" />
+          <Property Name="img" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Delivery__id_sto__412EB0B6">
+          <End Role="Storehouse" Type="Self.Storehouse" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="id_storehouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Delivery__id_sup__403A8C7D">
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="id_supplies" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employees__id_or__4BAC3F29">
+          <End Role="Order_" Type="Self.Order_" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="id_order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employees__id_st__4AB81AF0">
+          <End Role="Storehouse" Type="Self.Storehouse" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="id_storehouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employees__post__4CA06362">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order___id_custo__47DBAE45">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Order_" Type="Self.Order_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_">
+              <PropertyRef Name="id_customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_poi__id_di__5070F446">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="Order_point" Type="Self.Order_point" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_point">
+              <PropertyRef Name="id_dish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_poi__id_or__4F7CD00D">
+          <End Role="Order_" Type="Self.Order_" Multiplicity="1" />
+          <End Role="Order_point" Type="Self.Order_point" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_point">
+              <PropertyRef Name="id_order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products___id_St__534D60F1">
+          <End Role="Storehouse" Type="Self.Storehouse" Multiplicity="1" />
+          <End Role="Products_in_storehouse" Type="Self.Products_in_storehouse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Products_in_storehouse">
+              <PropertyRef Name="id_Storehouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Supplies__id_sup__3D5E1FD2">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Supplies">
+              <PropertyRef Name="id_supplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PolyankaModelContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Delivery" EntityType="Self.Delivery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_" EntityType="Self.Order_" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_point" EntityType="Self.Order_point" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products_in_storehouse" EntityType="Self.Products_in_storehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Storehouse" EntityType="Self.Storehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplies" EntityType="Self.Supplies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="images" EntityType="Self.images" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [images].[name] AS [name], 
+    [images].[image] AS [image]
+    FROM [dbo].[images] AS [images]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Delivery__id_sto__412EB0B6" Association="Self.FK__Delivery__id_sto__412EB0B6">
+            <End Role="Storehouse" EntitySet="Storehouse" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Delivery__id_sup__403A8C7D" Association="Self.FK__Delivery__id_sup__403A8C7D">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employees__id_or__4BAC3F29" Association="Self.FK__Employees__id_or__4BAC3F29">
+            <End Role="Order_" EntitySet="Order_" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employees__id_st__4AB81AF0" Association="Self.FK__Employees__id_st__4AB81AF0">
+            <End Role="Storehouse" EntitySet="Storehouse" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employees__post__4CA06362" Association="Self.FK__Employees__post__4CA06362">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order___id_custo__47DBAE45" Association="Self.FK__Order___id_custo__47DBAE45">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Order_" EntitySet="Order_" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_poi__id_di__5070F446" Association="Self.FK__Order_poi__id_di__5070F446">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Order_point" EntitySet="Order_point" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_poi__id_or__4F7CD00D" Association="Self.FK__Order_poi__id_or__4F7CD00D">
+            <End Role="Order_" EntitySet="Order_" />
+            <End Role="Order_point" EntitySet="Order_point" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products___id_St__534D60F1" Association="Self.FK__Products___id_St__534D60F1">
+            <End Role="Storehouse" EntitySet="Storehouse" />
+            <End Role="Products_in_storehouse" EntitySet="Products_in_storehouse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Supplies__id_sup__3D5E1FD2" Association="Self.FK__Supplies__id_sup__3D5E1FD2">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Supplies" EntitySet="Supplies" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PolyankaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contact_info" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Order_" Relationship="Self.FK__Order___id_custo__47DBAE45" FromRole="Customers" ToRole="Order_" />
+        </EntityType>
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_supplies" Type="Int32" Nullable="false" />
+          <Property Name="id_storehouse" Type="Int32" Nullable="false" />
+          <Property Name="date_of_delivery" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="full_cost" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Storehouse" Relationship="Self.FK__Delivery__id_sto__412EB0B6" FromRole="Delivery" ToRole="Storehouse" />
+          <NavigationProperty Name="Supplies" Relationship="Self.FK__Delivery__id_sup__403A8C7D" FromRole="Delivery" ToRole="Supplies" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_storehouse" Type="Int32" Nullable="false" />
+          <Property Name="id_order" Type="Int32" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="post" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order_" Relationship="Self.FK__Employees__id_or__4BAC3F29" FromRole="Employees" ToRole="Order_" />
+          <NavigationProperty Name="Storehouse" Relationship="Self.FK__Employees__id_st__4AB81AF0" FromRole="Employees" ToRole="Storehouse" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK__Employees__post__4CA06362" FromRole="Employees" ToRole="Posts" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dish_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description_" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Order_point" Relationship="Self.FK__Order_poi__id_di__5070F446" FromRole="Menu" ToRole="Order_point" />
+        </EntityType>
+        <EntityType Name="Order_">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_customer" Type="Int32" Nullable="false" />
+          <Property Name="date_of_order" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cost_of_order" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK__Order___id_custo__47DBAE45" FromRole="Order_" ToRole="Customers" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employees__id_or__4BAC3F29" FromRole="Order_" ToRole="Employees" />
+          <NavigationProperty Name="Order_point" Relationship="Self.FK__Order_poi__id_or__4F7CD00D" FromRole="Order_" ToRole="Order_point" />
+        </EntityType>
+        <EntityType Name="Order_point">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_order" Type="Int32" Nullable="false" />
+          <Property Name="id_dish" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK__Order_poi__id_di__5070F446" FromRole="Order_point" ToRole="Menu" />
+          <NavigationProperty Name="Order_" Relationship="Self.FK__Order_poi__id_or__4F7CD00D" FromRole="Order_point" ToRole="Order_" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_of_post" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description_" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employees__post__4CA06362" FromRole="Posts" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Products_in_storehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Storehouse" Type="Int32" Nullable="false" />
+          <Property Name="product_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="unit" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int32" />
+          <NavigationProperty Name="Storehouse" Relationship="Self.FK__Products___id_St__534D60F1" FromRole="Products_in_storehouse" ToRole="Storehouse" />
+        </EntityType>
+        <EntityType Name="Storehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="location_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Delivery" Relationship="Self.FK__Delivery__id_sto__412EB0B6" FromRole="Storehouse" ToRole="Delivery" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employees__id_st__4AB81AF0" FromRole="Storehouse" ToRole="Employees" />
+          <NavigationProperty Name="Products_in_storehouse" Relationship="Self.FK__Products___id_St__534D60F1" FromRole="Storehouse" ToRole="Products_in_storehouse" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contact_info" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Supplies" Relationship="Self.FK__Supplies__id_sup__3D5E1FD2" FromRole="Suppliers" ToRole="Supplies" />
+        </EntityType>
+        <EntityType Name="Supplies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_supplier" Type="Int32" Nullable="false" />
+          <Property Name="product_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="unit" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int32" />
+          <NavigationProperty Name="Delivery" Relationship="Self.FK__Delivery__id_sup__403A8C7D" FromRole="Supplies" ToRole="Delivery" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK__Supplies__id_sup__3D5E1FD2" FromRole="Supplies" ToRole="Suppliers" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Order___id_custo__47DBAE45">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Order_" Type="Self.Order_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_">
+              <PropertyRef Name="id_customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Delivery__id_sto__412EB0B6">
+          <End Role="Storehouse" Type="Self.Storehouse" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="id_storehouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Delivery__id_sup__403A8C7D">
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="id_supplies" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employees__id_or__4BAC3F29">
+          <End Role="Order_" Type="Self.Order_" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="id_order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employees__id_st__4AB81AF0">
+          <End Role="Storehouse" Type="Self.Storehouse" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="id_storehouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employees__post__4CA06362">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_poi__id_di__5070F446">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="Order_point" Type="Self.Order_point" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_point">
+              <PropertyRef Name="id_dish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_poi__id_or__4F7CD00D">
+          <End Role="Order_" Type="Self.Order_" Multiplicity="1" />
+          <End Role="Order_point" Type="Self.Order_point" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_point">
+              <PropertyRef Name="id_order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products___id_St__534D60F1">
+          <End Role="Storehouse" Type="Self.Storehouse" Multiplicity="1" />
+          <End Role="Products_in_storehouse" Type="Self.Products_in_storehouse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Products_in_storehouse">
+              <PropertyRef Name="id_Storehouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Supplies__id_sup__3D5E1FD2">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Supplies">
+              <PropertyRef Name="id_supplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PolyankaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customers" />
+          <EntitySet Name="Delivery" EntityType="Self.Delivery" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="Order_" EntityType="Self.Order_" />
+          <EntitySet Name="Order_point" EntityType="Self.Order_point" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" />
+          <EntitySet Name="Products_in_storehouse" EntityType="Self.Products_in_storehouse" />
+          <EntitySet Name="Storehouse" EntityType="Self.Storehouse" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
+          <EntitySet Name="Supplies" EntityType="Self.Supplies" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK__Order___id_custo__47DBAE45" Association="Self.FK__Order___id_custo__47DBAE45">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Order_" EntitySet="Order_" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Delivery__id_sto__412EB0B6" Association="Self.FK__Delivery__id_sto__412EB0B6">
+            <End Role="Storehouse" EntitySet="Storehouse" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Delivery__id_sup__403A8C7D" Association="Self.FK__Delivery__id_sup__403A8C7D">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employees__id_or__4BAC3F29" Association="Self.FK__Employees__id_or__4BAC3F29">
+            <End Role="Order_" EntitySet="Order_" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employees__id_st__4AB81AF0" Association="Self.FK__Employees__id_st__4AB81AF0">
+            <End Role="Storehouse" EntitySet="Storehouse" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employees__post__4CA06362" Association="Self.FK__Employees__post__4CA06362">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_poi__id_di__5070F446" Association="Self.FK__Order_poi__id_di__5070F446">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Order_point" EntitySet="Order_point" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_poi__id_or__4F7CD00D" Association="Self.FK__Order_poi__id_or__4F7CD00D">
+            <End Role="Order_" EntitySet="Order_" />
+            <End Role="Order_point" EntitySet="Order_point" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products___id_St__534D60F1" Association="Self.FK__Products___id_St__534D60F1">
+            <End Role="Storehouse" EntitySet="Storehouse" />
+            <End Role="Products_in_storehouse" EntitySet="Products_in_storehouse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Supplies__id_sup__3D5E1FD2" Association="Self.FK__Supplies__id_sup__3D5E1FD2">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Supplies" EntitySet="Supplies" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="PolyankaModel.Users" />
+          <EntitySet Name="images" EntityType="PolyankaModel.images" />
+        </EntityContainer>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="salt" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="images">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="image" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PolyankaModelContainer" CdmEntityContainer="PolyankaEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="PolyankaModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="contact_info" ColumnName="contact_info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Delivery">
+            <EntityTypeMapping TypeName="PolyankaModel.Delivery">
+              <MappingFragment StoreEntitySet="Delivery">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_supplies" ColumnName="id_supplies" />
+                <ScalarProperty Name="id_storehouse" ColumnName="id_storehouse" />
+                <ScalarProperty Name="date_of_delivery" ColumnName="date_of_delivery" />
+                <ScalarProperty Name="full_cost" ColumnName="full_cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="PolyankaModel.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_storehouse" ColumnName="id_storehouse" />
+                <ScalarProperty Name="id_order" ColumnName="id_order" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="post" ColumnName="post" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="PolyankaModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dish_name" ColumnName="dish_name" />
+                <ScalarProperty Name="description_" ColumnName="description_" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_">
+            <EntityTypeMapping TypeName="PolyankaModel.Order_">
+              <MappingFragment StoreEntitySet="Order_">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_customer" ColumnName="id_customer" />
+                <ScalarProperty Name="date_of_order" ColumnName="date_of_order" />
+                <ScalarProperty Name="cost_of_order" ColumnName="cost_of_order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_point">
+            <EntityTypeMapping TypeName="PolyankaModel.Order_point">
+              <MappingFragment StoreEntitySet="Order_point">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_order" ColumnName="id_order" />
+                <ScalarProperty Name="id_dish" ColumnName="id_dish" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="PolyankaModel.Posts">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name_of_post" ColumnName="name_of_post" />
+                <ScalarProperty Name="description_" ColumnName="description_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products_in_storehouse">
+            <EntityTypeMapping TypeName="PolyankaModel.Products_in_storehouse">
+              <MappingFragment StoreEntitySet="Products_in_storehouse">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_Storehouse" ColumnName="id_Storehouse" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Storehouse">
+            <EntityTypeMapping TypeName="PolyankaModel.Storehouse">
+              <MappingFragment StoreEntitySet="Storehouse">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name_" ColumnName="name_" />
+                <ScalarProperty Name="location_" ColumnName="location_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="PolyankaModel.Suppliers">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name_" ColumnName="name_" />
+                <ScalarProperty Name="contact_info" ColumnName="contact_info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplies">
+            <EntityTypeMapping TypeName="PolyankaModel.Supplies">
+              <MappingFragment StoreEntitySet="Supplies">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_supplier" ColumnName="id_supplier" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PolyankaModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PolyankaModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="images">
+            <EntityTypeMapping TypeName="PolyankaModel.images">
+              <MappingFragment StoreEntitySet="images">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
